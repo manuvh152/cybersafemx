@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TopicsModule } from './topics/topics.module';
@@ -7,16 +8,20 @@ import { QuestionsModule } from './questions/questions.module';
 import { AnswersModule } from './answers/answers.module';
 import { UsersModule } from './users/users.module';
 import { UserTopicsModule } from './user_topics/user_topics.module';
+import { NoticiasModule } from './noticias/noticias.module';
+
+const config = new ConfigService();
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'dpg-cl3fpa2uuipc738cfk5g-a.oregon-postgres.render.com',
-      port: 5432,
-      username: 'cybersafemx_user',
-      password: '1cB37ByqKZKYbse9yo9nmGQFHmDB5lWs',
-      database: 'cybersafemx',
+      host: config.get<string>('HOST'),
+      port: config.get<number>('PORT'),
+      username: config.get<string>('USER'),
+      password: config.get<string>('PASSWORD'),
+      database: config.get<string>('DATABASE'),
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
       logging: true,
@@ -36,7 +41,8 @@ import { UserTopicsModule } from './user_topics/user_topics.module';
     QuestionsModule,
     AnswersModule,
     UsersModule,
-    UserTopicsModule
+    UserTopicsModule,
+    NoticiasModule
   ],
   controllers: [AppController],
   providers: [AppService],
