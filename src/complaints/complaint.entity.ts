@@ -9,6 +9,6 @@ export class Complaint{
   @Column('varchar', {length: 200})
   topic: string
 
-  @Column({type: 'json'})
+  @Column("json")
   steps: string
 }

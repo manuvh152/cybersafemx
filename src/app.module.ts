@@ -9,20 +9,16 @@ import { UsersModule } from './users/users.module';
 import { UserTopicsModule } from './user_topics/user_topics.module';
 import { NoticiasModule } from './noticias/noticias.module';
 import { ComplaintsModule } from './complaints/complaints.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-
-const config = new ConfigService();
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: config.get<string>('HOST'),
-      port: config.get<number>('PORT'),
-      username: config.get<string>('USER'),
-      password: config.get<string>('PASSWORD'),
-      database: config.get<string>('DATABASE'),
+      host: 'dpg-cl3fpa2uuipc738cfk5g-a.oregon-postgres.render.com',
+      port: 5432,
+      username: 'cybersafemx_user',
+      password: '1cB37ByqKZKYbse9yo9nmGQFHmDB5lWs',
+      database: 'cybersafemx',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
       logging: true,
